@@ -92,10 +92,16 @@ public extension UIView {
         case bottomRightToTopLeft
     }
     
-    func setLinerBackground(colorTop: UIColor, colorBottom: UIColor, direction: GradientDirection) {
+    func setLinerBackground(colorTop: UIColor, colorMiddle: UIColor? = nil, colorBottom: UIColor, direction: GradientDirection) {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop.cgColor, colorBottom.cgColor]
-        gradientLayer.locations = [0.0, 1.0]
+        
+        if let middleColor = colorMiddle {
+            gradientLayer.colors = [colorTop.cgColor, middleColor.cgColor, colorBottom.cgColor]
+            gradientLayer.locations = [0.0, 0.5, 1.0]
+        } else {
+            gradientLayer.colors = [colorTop.cgColor, colorBottom.cgColor]
+            gradientLayer.locations = [0.0, 1.0]
+        }
         
         switch direction {
         case .vertical:
