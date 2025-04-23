@@ -4,10 +4,9 @@ import StoreKit
 
 public class BaseKitTools: NSObject {
     
-    @MainActor static let shared = BaseKitTools()
     
     /// set custom font on UIButton
-    @MainActor func setAttributedTitleForButton(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment) {
+    @MainActor public static func setAttributedTitleForButton(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
         
@@ -23,7 +22,7 @@ public class BaseKitTools: NSObject {
 
 
     /// show update popup if available
-    @MainActor func showUpdatePopup(_ vc: UIViewController, apple_ID: String) {
+    @MainActor public static func showUpdatePopup(_ vc: UIViewController, apple_ID: String) {
         let alertController = UIAlertController(title: "Update Available",
                                                 message: "A new version of the app is available. Please update to enjoy the latest features and improvements.",
                                                 preferredStyle: .alert)
@@ -43,7 +42,7 @@ public class BaseKitTools: NSObject {
 
 
     ///Help you to get URL of UIImage
-    func saveImageToTemporaryDirectory(_ image: UIImage) -> URL? {
+    public static func saveImageToTemporaryDirectory(_ image: UIImage) -> URL? {
         let tempDirectory = FileManager.default.temporaryDirectory
         let imageName = UUID().uuidString + ".jpg"  // Unique file name
         let imageUrl = tempDirectory.appendingPathComponent(imageName)
@@ -62,14 +61,14 @@ public class BaseKitTools: NSObject {
 
 
     /// Re-direct url into safari
-    @MainActor func gotoLink(str: String) {
+    @MainActor public static func gotoLink(str: String) {
         guard let url = URL(string: str) else { return }
         UIApplication.shared.open(url)
     }
 
 
     /// show rating pop up
-    @MainActor func rateApp(apple_ID: String) {
+    @MainActor public static func rateApp(apple_ID: String) {
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         }
@@ -85,7 +84,7 @@ public class BaseKitTools: NSObject {
 
 
     ///restart app
-    @MainActor func restartApp() {
+    @MainActor public static func restartApp() {
         guard let window = UIApplication.shared.windows.first else {
             return
         }
@@ -102,7 +101,7 @@ public class BaseKitTools: NSObject {
 
 
     //share Application
-    func shareApp(_ vc: UIViewController, apple_ID: String) {
+    public static func shareApp(_ vc: UIViewController, apple_ID: String) {
         DispatchQueue.main.async {
             let appURL = URL(string: "https://apps.apple.com/gb/app/iptv-live-tv/id\(apple_ID)")!
             
