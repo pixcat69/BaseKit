@@ -2,11 +2,10 @@ import UIKit
 import StoreKit
 
 
-public class BaseKitTools: NSObject {
-    
+public class BaseKit {
     
     /// set custom font on UIButton
-    @MainActor public static func setAttributedTitleForButton(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment) {
+    @MainActor public func setAttributedTitleForButton(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
         
