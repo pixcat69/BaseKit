@@ -1,8 +1,8 @@
 import Foundation
 
 
-//MARK: Date 
-extension Date {
+//MARK: Date
+public extension Date {
     /// Converts a `Date` to a `String` using the specified format.
     ///
     /// ### Common Date Format Examples:
