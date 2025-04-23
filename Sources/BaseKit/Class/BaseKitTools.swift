@@ -2,7 +2,7 @@ import UIKit
 import StoreKit
 
 
-public class BaseKIT {
+public class BaseKitTools: NSObject {
     
     /// set custom font on UIButton
     @MainActor static func setAttributedTitleForButton(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment) {
