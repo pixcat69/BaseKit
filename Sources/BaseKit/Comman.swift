@@ -31,7 +31,7 @@ public extension Date {
 
 
 // MARK: UITableViewCell Animation Extension
-extension UITableViewCell {
+public extension UITableViewCell {
     func animateAppearance(at indexPath: IndexPath, with duration: CGFloat = 0.5) {
         self.alpha = 0
         self.transform = CGAffineTransform(translationX: 0, y: 20)
