@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 
 //MARK: Date
@@ -25,5 +26,18 @@ public extension Date {
         formatter.dateFormat = format
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: self)
+    }
+}
+
+
+// MARK: UITableViewCell Animation Extension
+extension UITableViewCell {
+    func animateAppearance(at indexPath: IndexPath, with duration: CGFloat = 0.5) {
+        self.alpha = 0
+        self.transform = CGAffineTransform(translationX: 0, y: 20)
+        UIView.animate(withDuration: duration, delay: 0.05 * Double(indexPath.row), options: [.curveEaseInOut], animations: {
+            self.alpha = 1
+            self.transform = .identity
+        }, completion: nil)
     }
 }
