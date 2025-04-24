@@ -32,9 +32,21 @@ public extension Date {
 
 // MARK: UITableViewCell Animation Extension
 public extension UITableViewCell {
-    func animateAppearance(at indexPath: IndexPath, with duration: CGFloat = 0.5) {
+    enum AnimationDirection {
+        case top, bottom, left, right
+    }
+    func animateAppearance(at indexPath: IndexPath, direction: AnimationDirection = .bottom, duration: CGFloat = 0.5) {
         self.alpha = 0
-        self.transform = CGAffineTransform(translationX: 0, y: 20)
+        switch direction {
+        case .top:
+            self.transform = CGAffineTransform(translationX: 0, y: -20)
+        case .bottom:
+            self.transform = CGAffineTransform(translationX: 0, y: 20)
+        case .left:
+            self.transform = CGAffineTransform(translationX: -20, y: 0)
+        case .right:
+            self.transform = CGAffineTransform(translationX: 20, y: 0)
+        }
         UIView.animate(withDuration: duration, delay: 0.05 * Double(indexPath.row), options: [.curveEaseInOut], animations: {
             self.alpha = 1
             self.transform = .identity
