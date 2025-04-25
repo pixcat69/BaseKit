@@ -1,9 +1,6 @@
 import UIKit
 
 
-
-
-
 @available(iOS 13.0, *)
 public extension UIViewController {
     func errorAlert(message: String) -> UIAlertController {

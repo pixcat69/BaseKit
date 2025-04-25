@@ -3,7 +3,7 @@ import UIKit
 import SystemConfiguration
 
 
-//MARK: Date
+// MARK: Date
 public extension Date {
     /// Converts a `Date` to a `String` using the specified format.
     ///
@@ -52,5 +52,14 @@ public extension UITableViewCell {
             self.alpha = 1
             self.transform = .identity
         }, completion: nil)
+    }
+}
+
+
+// MARK: String
+public extension String {
+    /// Filters filename to extract the desired name part dynamically
+    func getName() -> String? {
+        return self.components(separatedBy: " - ").last?.components(separatedBy: ".").first
     }
 }

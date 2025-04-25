@@ -1,0 +1,52 @@
+import UIKit
+import ImageIO
+
+
+public extension UIImage {
+    
+    static func gifImageWithName(_ name: String) -> UIImage? {
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else { return nil }
+        guard let imageData = try? Data(contentsOf: bundleURL) else { return nil }
+        return gifImageWithData(imageData)
+    }
+    
+    
+    static func gifImageWithData(_ data: Data) -> UIImage? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
+        let count = CGImageSourceGetCount(source)
+        var images = [UIImage]()
+        var duration: TimeInterval = 0.0
+
+        for i in 0..<count {
+            guard let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) else { continue }
+            let frameDuration = 0.1
+            duration += frameDuration
+            images.append(UIImage(cgImage: cgImage))
+        }
+
+        return UIImage.animatedImage(with: images, duration: duration)
+    }
+    
+    
+    /// convert char in to UIImage
+    static func imageWithFirstLetter(from text: String, size: CGSize = CGSize(width: 100, height: 100)) -> UIImage? {
+        guard let firstLetter = text.getName()?.prefix(1) else { return nil }
+        
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            UIColor.accent.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+            
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.outfit(.bold, size: 40)!,
+                .foregroundColor: UIColor.white
+            ]
+            
+            let text = String(firstLetter)
+            let textSize = text.size(withAttributes: attributes)
+            let textOrigin = CGPoint(x: (size.width - textSize.width) / 2,
+                                     y: (size.height - textSize.height) / 2)
+            text.draw(at: textOrigin, withAttributes: attributes)
+        }
+    }
+}

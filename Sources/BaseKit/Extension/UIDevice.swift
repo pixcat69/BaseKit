@@ -2,9 +2,6 @@ import UIKit
 import AVKit
 
 
-
-
-
 public extension UIDevice {
     
     static func vibrate() {
