@@ -1,7 +1,7 @@
 import UIKit
 
 
-extension UILabel {
+public extension UILabel {
     func setHTMLFromString(_ htmlText: String) {
         guard let data = htmlText.data(using: .utf8) else { return }
         let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
