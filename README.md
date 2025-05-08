@@ -1,5 +1,5 @@
 Hello...👋
-This is packege will let you help in make your code ezzz!
+This packege will let you help in make your code ezzzyy!
 
 Hahahah...😄
 
