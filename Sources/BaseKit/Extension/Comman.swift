@@ -3,7 +3,7 @@ import UIKit
 import SystemConfiguration
 
 
-// MARK: Date
+//MARK: Date
 public extension Date {
     /// Converts a `Date` to a `String` using the specified format.
     ///
@@ -31,7 +31,7 @@ public extension Date {
 }
 
 
-// MARK: UITableViewCell Animation Extension
+//MARK: UITableViewCell Animation Extension
 public extension UITableViewCell {
     enum AnimationDirection {
         case top, bottom, left, right
@@ -56,10 +56,26 @@ public extension UITableViewCell {
 }
 
 
-// MARK: String
+//MARK: String
 public extension String {
     /// Filters filename to extract the desired name part dynamically
     func getName() -> String? {
         return self.components(separatedBy: " - ").last?.components(separatedBy: ".").first
+    }
+}
+
+
+//MARK: Double
+public extension Double {
+    /// Rounds the double to 'places' decimal places
+    func rounded(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+    
+    /// Truncates the double to 'places' decimal places (no rounding)
+    func truncated(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return Double(Int(self * divisor)) / divisor
     }
 }
