@@ -19,7 +19,6 @@ public class BaseKitTools {
         button.setAttributedTitle(attributedTitle, for: .normal)
     }
 
-
     /// show update popup if available
     @MainActor public static func showUpdatePopup(_ vc: UIViewController, apple_ID: String) {
         let alertController = UIAlertController(title: "Update Available",
@@ -39,7 +38,6 @@ public class BaseKitTools {
         vc.present(alertController, animated: true, completion: nil)
     }
 
-
     ///Help you to get URL of UIImage
     public static func saveImageToTemporaryDirectory(_ image: UIImage) -> URL? {
         let tempDirectory = FileManager.default.temporaryDirectory
@@ -58,13 +56,11 @@ public class BaseKitTools {
         return nil
     }
 
-
     /// Re-direct url into safari
     @MainActor public static func gotoLink(str: String) {
         guard let url = URL(string: str) else { return }
         UIApplication.shared.open(url)
     }
-
 
     /// show rating pop up
     @MainActor public static func rateApp(apple_ID: String) {
@@ -80,7 +76,6 @@ public class BaseKitTools {
             }
         }
     }
-
 
     ///restart app
     @MainActor public static func restartApp() {
@@ -98,8 +93,7 @@ public class BaseKitTools {
         UIView.transition(with: window, duration: 0.5, options: [.transitionCrossDissolve], animations: nil, completion: nil)
     }
 
-
-    //share Application
+    ///share Application
     public static func shareApp(_ vc: UIViewController, apple_ID: String) {
         DispatchQueue.main.async {
             let appURL = URL(string: "https://apps.apple.com/gb/app/iptv-live-tv/id\(apple_ID)")!
@@ -108,6 +102,13 @@ public class BaseKitTools {
             vc.present(activityViewController, animated: true)
             
         }
+    }
+    
+    ///Convert date into Desired formate
+    public static func formatDate(_ date: Date, toFormat format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: date)
     }
     
 }
