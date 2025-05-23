@@ -4,14 +4,14 @@ import ImageIO
 
 public extension UIImage {
     
-    static func gifImageWithName(_ name: String) -> UIImage? {
+    static func gifImageWithName(_ name: String, frameDuration: TimeInterval = 0.1) -> UIImage? {
         guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif") else { return nil }
         guard let imageData = try? Data(contentsOf: bundleURL) else { return nil }
         return gifImageWithData(imageData)
     }
     
     
-    static func gifImageWithData(_ data: Data) -> UIImage? {
+    static func gifImageWithData(_ data: Data, frameDuration: TimeInterval = 0.1) -> UIImage? {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else { return nil }
         let count = CGImageSourceGetCount(source)
         var images = [UIImage]()
@@ -19,7 +19,7 @@ public extension UIImage {
 
         for i in 0..<count {
             guard let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) else { continue }
-            let frameDuration = 0.1
+            let frameDuration = frameDuration
             duration += frameDuration
             images.append(UIImage(cgImage: cgImage))
         }
