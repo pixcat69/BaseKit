@@ -19,7 +19,17 @@ public extension UIImage {
 
         for i in 0..<count {
             guard let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) else { continue }
-            let frameDuration = max(0.02, frameDuration)
+
+            var frameDuration = frameDuration
+            if let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil) as? [CFString: Any],
+               let gifProperties = properties[kCGImagePropertyGIFDictionary] as? [CFString: Any],
+               let delayTime = gifProperties[kCGImagePropertyGIFUnclampedDelayTime] as? NSNumber {
+                frameDuration = delayTime.doubleValue
+                if frameDuration < 0.02 {
+                    frameDuration = 0.1
+                }
+            }
+
             duration += frameDuration
             images.append(UIImage(cgImage: cgImage))
         }
