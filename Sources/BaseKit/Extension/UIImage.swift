@@ -19,7 +19,7 @@ public extension UIImage {
 
         for i in 0..<count {
             guard let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) else { continue }
-            let frameDuration = frameDuration
+            let frameDuration = max(0.02, frameDuration)
             duration += frameDuration
             images.append(UIImage(cgImage: cgImage))
         }
