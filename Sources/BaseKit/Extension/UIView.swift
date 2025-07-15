@@ -133,60 +133,74 @@ public extension UIView {
         case fade, slideFromLeft, slideFromRight, slideUp, slideDown, scale, flip
     }
     
-    func applyTransition(_ animation: TransitionAnimation, duration: TimeInterval = 0.6) {
+    func applyTransition(_ animation: TransitionAnimation, duration: TimeInterval = 0.6, completion: (() -> Void)? = nil) {
         switch animation {
         case .fade:
             self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
                 self.alpha = 1
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .slideFromLeft:
             self.transform = CGAffineTransform(translationX: -self.frame.width, y: 0)
             self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
                 self.transform = .identity
                 self.alpha = 1
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .slideFromRight:
             self.transform = CGAffineTransform(translationX: self.frame.width, y: 0)
             self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
                 self.transform = .identity
                 self.alpha = 1
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .slideUp:
             self.transform = CGAffineTransform(translationX: 0, y: self.frame.height)
             self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
                 self.transform = .identity
                 self.alpha = 1
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .slideDown:
             self.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
             self.alpha = 0
-            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, options: [.curveEaseInOut], animations: {
                 self.transform = .identity
                 self.alpha = 1
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .scale:
             self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: [.curveEaseOut]) {
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: [.curveEaseOut], animations: {
                 self.transform = .identity
-            }
+            }, completion: { _ in
+                completion?()
+            })
             
         case .flip:
             var transform = CATransform3DIdentity
             transform.m34 = -1.0 / 500 // Adds a slight 3D effect
             self.layer.transform = CATransform3DRotate(transform, .pi / 2, 0, 1, 0)
             
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut]) {
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: [.curveEaseInOut], animations: {
                 self.layer.transform = CATransform3DIdentity
-            }
+            }, completion: { _ in
+                completion?()
+            })
         }
     }
     
