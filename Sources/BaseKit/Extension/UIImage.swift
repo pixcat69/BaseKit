@@ -39,7 +39,7 @@ public extension UIImage {
     
     
     /// convert char in to UIImage
-    static func imageWithFirstLetter(from text: String, size: CGSize = CGSize(width: 100, height: 100), color: UIColor, font: UIFont) -> UIImage? {
+    static func imageWithFirstLetter(from text: String, size: CGSize = CGSize(width: 100, height: 100), color: UIColor, foregroundColor: UIColor = .white, font: UIFont) -> UIImage? {
         guard let firstLetter = text.getName()?.prefix(1) else { return nil }
         
         let renderer = UIGraphicsImageRenderer(size: size)
@@ -49,7 +49,7 @@ public extension UIImage {
             
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: font,
-                .foregroundColor: UIColor.white
+                .foregroundColor: foregroundColor
             ]
             
             let text = String(firstLetter)
