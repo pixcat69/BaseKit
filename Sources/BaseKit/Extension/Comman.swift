@@ -3,7 +3,7 @@ import UIKit
 import SystemConfiguration
 
 
-//MARK: Date
+//MARK: - Date
 public extension Date {
     /// Converts a `Date` to a `String` using the specified format.
     ///
@@ -31,7 +31,7 @@ public extension Date {
 }
 
 
-//MARK: UITableViewCell Animation Extension
+//MARK: - UITableViewCell Animation Extension
 public extension UITableViewCell {
     enum AnimationDirection {
         case top, bottom, left, right
@@ -56,7 +56,7 @@ public extension UITableViewCell {
 }
 
 
-//MARK: String
+//MARK: - String
 public extension String {
     /// Filters filename to extract the desired name part dynamically
     func getName() -> String? {
@@ -65,7 +65,7 @@ public extension String {
 }
 
 
-//MARK: Double
+//MARK: - Double
 public extension Double {
     /// Rounds the double to 'places' decimal places
     func rounded(toPlaces places: Int) -> Double {
@@ -81,7 +81,7 @@ public extension Double {
 }
 
 
-//MARK: UIColor
+//MARK: - UIColor
 public extension UIColor {
     convenience init?(hex: String, alpha: CGFloat = 1.0) {
         var hexFormatted = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -102,5 +102,21 @@ public extension UIColor {
         let blue = CGFloat(rgbValue & 0x0000FF) / 255.0
 
         self.init(red: red, green: green, blue: blue, alpha: alpha)
+    }
+}
+
+
+//MARK: - String
+public extension String {
+    /// Checks if string can be formed into a valid URL
+    @MainActor var isValidURL: Bool {
+        guard let url = URL(string: self) else { return false }
+        return UIApplication.shared.canOpenURL(url)
+    }
+    
+    /// Checks specifically for web URLs (http or https)
+    var isWebURL: Bool {
+        guard let url = URL(string: self) else { return false }
+        return url.scheme == "http" || url.scheme == "https"
     }
 }
