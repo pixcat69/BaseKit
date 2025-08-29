@@ -310,4 +310,11 @@ public extension UIView {
         layer.shadowPath = nil
     }
     
+    func snapshot() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(bounds: self.bounds)
+        return renderer.image { ctx in
+            self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        }
+    }
+    
 }

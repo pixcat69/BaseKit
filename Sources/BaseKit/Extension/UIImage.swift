@@ -59,4 +59,31 @@ public extension UIImage {
             text.draw(at: textOrigin, withAttributes: attributes)
         }
     }
+    
+    
+    /// Save UIImage as PNG or JPEG to temp directory and return file URL
+    func toURL(fileName: String = UUID().uuidString, asJPEG: Bool = false, compressionQuality: CGFloat = 0.8) -> URL? {
+        let fileManager = FileManager.default
+        let tempDir = fileManager.temporaryDirectory
+        let url = tempDir.appendingPathComponent(fileName + (asJPEG ? ".jpg" : ".png"))
+        
+        let data: Data?
+        if asJPEG {
+            data = self.jpegData(compressionQuality: compressionQuality)
+        }
+        else {
+            data = self.pngData()
+        }
+        
+        guard let imageData = data else { return nil }
+        
+        do {
+            try imageData.write(to: url)
+            return url
+        }
+        catch {
+            print("❌ Error saving image to URL: \(error)")
+            return nil
+        }
+    }
 }
