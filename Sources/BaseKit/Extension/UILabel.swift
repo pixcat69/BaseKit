@@ -71,4 +71,37 @@ public extension UILabel {
         }
         return nil
     }
+    
+    
+    func applyGradient(colors: [UIColor], startPoint: CGPoint = CGPoint(x: 0, y: 0), endPoint: CGPoint = CGPoint(x: 1, y: 0)) {
+        // Make sure label has text
+        guard let text = self.text, let font = self.font else { return }
+        
+        // Clear text color so gradient shows through
+        self.textColor = .clear
+        
+        // Remove any existing gradient layers
+        self.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        
+        // Create gradient layer
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = colors.map { $0.cgColor }
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        
+        // Create text mask
+        let textMask = CATextLayer()
+        textMask.string = text
+        textMask.font = font
+        textMask.fontSize = font.pointSize
+        textMask.alignmentMode = .center
+        textMask.frame = self.bounds
+        textMask.contentsScale = UIScreen.main.scale
+        
+        gradientLayer.mask = textMask
+        
+        // Add gradient layer to label
+        self.layer.addSublayer(gradientLayer)
+    }
 }
