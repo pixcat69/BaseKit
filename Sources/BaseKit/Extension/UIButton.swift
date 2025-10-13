@@ -1,6 +1,6 @@
 import UIKit
 
-extension UIButton {
+public extension UIButton {
     static func customTitle(
         _ title: String,
         font: UIFont,
