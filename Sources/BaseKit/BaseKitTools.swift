@@ -4,6 +4,24 @@ import StoreKit
 
 public class BaseKitTools {
     
+    @MainActor public static func btnTitle(button: UIButton, title: String, font: UIFont, color: UIColor, alignment: NSTextAlignment, underline: Bool = false) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
+        
+        var attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: color,
+            .paragraphStyle: paragraphStyle
+        ]
+        if underline {
+            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+        }
+        
+        let attributedTitle = NSAttributedString(string: title, attributes: attributes)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+    }
+
+    
     /// show update popup if available
     @MainActor public static func showUpdatePopup(_ vc: UIViewController, apple_ID: String) {
         let alertController = UIAlertController(title: "Update Available",
