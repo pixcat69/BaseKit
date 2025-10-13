@@ -3,7 +3,7 @@ import UIKit
 
 extension UIButton {
     
-    func setAttributedTitle(
+    func setCustomTitle(
         _ title: String,
         font: UIFont,
         color: UIColor,
