@@ -19,11 +19,11 @@ public extension UIViewController {
         view.endEditing(true)
     }
     
-    func setTitle(_ title: String, alignment: NSTextAlignment, font: UIFont) {
+    func setTitle(_ title: String, alignment: NSTextAlignment, font: UIFont, textColor: UIColor = .label) {
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = font
-        titleLabel.textColor = .label
+        titleLabel.textColor = textColor
         titleLabel.textAlignment = alignment
         
         titleLabel.sizeToFit()
