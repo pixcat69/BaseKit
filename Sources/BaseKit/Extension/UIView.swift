@@ -317,4 +317,28 @@ public extension UIView {
         }
     }
     
+    
+    func addDashedCornerBorder(color: UIColor = .black, lineWidth: CGFloat = 1, dashPattern: [NSNumber] = [6, 3], cornerRadius: CGFloat? = nil) {
+        // Remove any existing dashed layer
+        layer.sublayers?
+            .filter { $0.name == "dashedBorderLayer" }
+            .forEach { $0.removeFromSuperlayer() }
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.name = "dashedBorderLayer"
+        shapeLayer.strokeColor = color.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = lineWidth
+        shapeLayer.lineDashPattern = dashPattern
+        
+        let radius = cornerRadius ?? self.layer.cornerRadius
+        shapeLayer.path = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: radius
+        ).cgPath
+        
+        shapeLayer.frame = bounds
+        layer.addSublayer(shapeLayer)
+    }
+    
 }
