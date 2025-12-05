@@ -287,28 +287,25 @@ public extension UIView {
     }
     
     
-    func applyInnerGlow(color: UIColor, radius: CGFloat, opacity: Float = 1.0) {
-        layer.masksToBounds = false // Important to allow shadow outside the bounds
+    func applyInnerShadow(color: UIColor = .black, radius: CGFloat = 5, opacity: Float = 0.5, cornerRadius: CGFloat = 0) {
+        let shadowLayer = CAShapeLayer()
+        let path = UIBezierPath(roundedRect: bounds.insetBy(dx: -1, dy: -1), cornerRadius: cornerRadius)
+        let innerPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).reversing()
+        path.append(innerPath)
         
-        // Create a shadow path inset from the view's bounds
-        let shadowPath = UIBezierPath(rect: bounds.insetBy(dx: -radius, dy: -radius))
+        shadowLayer.frame = bounds
+        shadowLayer.shadowPath = path.cgPath
+        shadowLayer.masksToBounds = true
+        shadowLayer.fillRule = .evenOdd
+        shadowLayer.fillColor = UIColor.clear.cgColor
+        shadowLayer.shadowColor = color.cgColor
+        shadowLayer.shadowOffset = .zero
+        shadowLayer.shadowOpacity = opacity
+        shadowLayer.shadowRadius = radius
         
-        // Create an inner shadow path by subtracting the view's path
-        let innerShadowPath = UIBezierPath(rect: bounds)
-        shadowPath.append(innerShadowPath.reversing())
-        
-        layer.shadowColor = color.cgColor
-        layer.shadowOpacity = opacity
-        layer.shadowOffset = CGSize.zero
-        layer.shadowRadius = radius
-        layer.shadowPath = shadowPath.cgPath
+        layer.addSublayer(shadowLayer)
     }
     
-    func removeInnerGlow() {
-        layer.shadowColor = UIColor.clear.cgColor
-        layer.shadowOpacity = 0
-        layer.shadowPath = nil
-    }
     
     func snapshot() -> UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: self.bounds)
