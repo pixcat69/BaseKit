@@ -62,27 +62,19 @@ public extension UIImage {
     
     
     /// Save UIImage as PNG or JPEG to temp directory and return file URL
-    func toURL(fileName: String = UUID().uuidString, asJPEG: Bool = false, compressionQuality: CGFloat = 0.8) -> URL? {
-        let fileManager = FileManager.default
-        let tempDir = fileManager.temporaryDirectory
-        let url = tempDir.appendingPathComponent(fileName + (asJPEG ? ".jpg" : ".png"))
+    func getURL(fileName: String = UUID().uuidString + ".png") -> URL? {
+        // Convert image to PNG data (you can switch to jpeg if needed)
+        guard let data = self.pngData() else { return nil }
         
-        let data: Data?
-        if asJPEG {
-            data = self.jpegData(compressionQuality: compressionQuality)
-        }
-        else {
-            data = self.pngData()
-        }
-        
-        guard let imageData = data else { return nil }
+        // Create a file URL in caches directory
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
         
         do {
-            try imageData.write(to: url)
+            try data.write(to: url)
             return url
         }
         catch {
-            print("❌ Error saving image to URL: \(error)")
+            print("Failed to write image to URL:", error)
             return nil
         }
     }
