@@ -14,7 +14,7 @@ public extension UIView {
         }
     }
     
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+    func specificSide(corners: UIRectCorner, radius: CGFloat) {
         DispatchQueue.main.async { [self] in
             let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
             let mask = CAShapeLayer()
@@ -23,7 +23,7 @@ public extension UIView {
         }
     }
     
-    func applyShadow(color: UIColor = .black, opacity: Float = 0.5, offset: CGSize = CGSize(width: 0, height: 2), radius: CGFloat = 4) {
+    func shadow(color: UIColor = .black, opacity: Float = 0.5, offset: CGSize = CGSize(width: 0, height: 2), radius: CGFloat = 4) {
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOpacity = opacity
         self.layer.shadowOffset = offset
@@ -31,7 +31,7 @@ public extension UIView {
         self.layer.masksToBounds = false
     }
     
-    func corner_border(corner: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
+    func border(corner: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
         self.layer.cornerRadius = corner
         self.layer.borderColor = borderColor.cgColor
         self.layer.borderWidth = borderWidth
@@ -287,7 +287,7 @@ public extension UIView {
     }
     
     
-    func applyInnerShadow(color: UIColor = .black, radius: CGFloat = 5, opacity: Float = 0.5, cornerRadius: CGFloat = 0) {
+    func innerShadow(color: UIColor = .black, radius: CGFloat = 5, opacity: Float = 0.5, cornerRadius: CGFloat = 0) {
         let shadowLayer = CAShapeLayer()
         let path = UIBezierPath(roundedRect: bounds.insetBy(dx: -1, dy: -1), cornerRadius: cornerRadius)
         let innerPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).reversing()
@@ -315,7 +315,7 @@ public extension UIView {
     }
     
     
-    func addDashedCornerBorder(color: UIColor = .black, lineWidth: CGFloat = 1, dashPattern: [NSNumber] = [6, 3], cornerRadius: CGFloat? = nil) {
+    func dashed_border(color: UIColor = .black, lineWidth: CGFloat = 1, dashPattern: [NSNumber] = [6, 3], cornerRadius: CGFloat? = nil) {
         // Remove any existing dashed layer
         layer.sublayers?
             .filter { $0.name == "dashedBorderLayer" }
