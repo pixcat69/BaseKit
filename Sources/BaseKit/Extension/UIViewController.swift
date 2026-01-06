@@ -43,4 +43,73 @@ public extension UIViewController {
             self.navigationItem.titleView = titleLabel
         }
     }
+    
+    
+    /// Present alert with custom font and tow actions
+    func alert(title: String, message: String, style: UIAlertAction.Style, fontName: String, handler: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+
+        // Create attributed title
+        let titleAttr = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont.init(name: fontName, size: 18)!,
+                .foregroundColor: UIColor.label
+            ]
+        )
+
+        // Create attributed message
+        let messageAttr = NSAttributedString(
+            string: message,
+            attributes: [
+                .font: UIFont.init(name: fontName, size: 15)!,
+                .foregroundColor: UIColor.label
+            ]
+        )
+
+        alert.setValue(titleAttr, forKey: "attributedTitle")
+        alert.setValue(messageAttr, forKey: "attributedMessage")
+
+        let ok = UIAlertAction(title: "Yes", style: style) { _ in
+            handler()
+        }
+        alert.addAction(ok)
+
+        let no = UIAlertAction(title: "No", style: .cancel)
+        alert.addAction(no)
+        
+        present(alert, animated: true)
+    }
+
+
+    /// Present alert with custom font and only one action
+    func alert(on vc: UIViewController, title: String, message: String, fontName: String) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+
+        // Create attributed title
+        let titleAttr = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont.init(name: fontName, size: 18)!,
+                .foregroundColor: UIColor.label
+            ]
+        )
+
+        // Create attributed message
+        let messageAttr = NSAttributedString(
+            string: message,
+            attributes: [
+                .font: UIFont.init(name: fontName, size: 15)!,
+                .foregroundColor: UIColor.secondaryLabel
+            ]
+        )
+
+        alert.setValue(titleAttr, forKey: "attributedTitle")
+        alert.setValue(messageAttr, forKey: "attributedMessage")
+
+        let no = UIAlertAction(title: "Okay", style: .cancel)
+        alert.addAction(no)
+        
+        vc.present(alert, animated: true)
+    }
 }
