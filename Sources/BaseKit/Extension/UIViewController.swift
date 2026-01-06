@@ -83,7 +83,7 @@ public extension UIViewController {
 
 
     /// Present alert with custom font and only one action
-    func alert(on vc: UIViewController, title: String, message: String, fontName: String) {
+    func alert(title: String, message: String, fontName: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
 
         // Create attributed title
@@ -110,6 +110,6 @@ public extension UIViewController {
         let no = UIAlertAction(title: "Okay", style: .cancel)
         alert.addAction(no)
         
-        vc.present(alert, animated: true)
+        present(alert, animated: true)
     }
 }
