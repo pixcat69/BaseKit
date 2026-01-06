@@ -53,7 +53,7 @@ public extension UIViewController {
         let titleAttr = NSAttributedString(
             string: title,
             attributes: [
-                .font: UIFont.init(name: fontName, size: 18)!,
+                .font: UIFont.init(name: "\(fontName)-Bold", size: 18) ?? .systemFont(ofSize: 18, weight: .bold),
                 .foregroundColor: UIColor.label
             ]
         )
@@ -62,8 +62,8 @@ public extension UIViewController {
         let messageAttr = NSAttributedString(
             string: message,
             attributes: [
-                .font: UIFont.init(name: fontName, size: 15)!,
-                .foregroundColor: UIColor.label
+                .font: UIFont.init(name: "\(fontName)-Regular", size: 15) ?? .systemFont(ofSize: 18, weight: .regular),
+                .foregroundColor: UIColor.secondaryLabel
             ]
         )
 
@@ -90,7 +90,7 @@ public extension UIViewController {
         let titleAttr = NSAttributedString(
             string: title,
             attributes: [
-                .font: UIFont.init(name: fontName, size: 18)!,
+                .font: UIFont.init(name: "\(fontName)-Bold", size: 18) ?? .systemFont(ofSize: 18, weight: .bold),
                 .foregroundColor: UIColor.label
             ]
         )
@@ -99,7 +99,7 @@ public extension UIViewController {
         let messageAttr = NSAttributedString(
             string: message,
             attributes: [
-                .font: UIFont.init(name: fontName, size: 15)!,
+                .font: UIFont.init(name: "\(fontName)-Regular", size: 15) ?? .systemFont(ofSize: 18, weight: .regular),
                 .foregroundColor: UIColor.secondaryLabel
             ]
         )
